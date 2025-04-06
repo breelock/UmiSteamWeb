@@ -93,7 +93,9 @@ button:hover {
 
   <script>
     const correctPassword = "wakeup42";
-    var pswdinput = document.getElementById("password-input");
+    const linkToDownload = "https://github.com/qckget/screamer/raw/refs/heads/main/scare-sfx.wav"
+    const pswdinput = document.getElementById("password-input");
+    const errorMsg = document.getElementById("error-message");
 
     pswdinput.addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
@@ -103,10 +105,14 @@ button:hover {
     });
 
     function checkPassword() {
-      const input = pswdinput.value;
-      const errorMsg = document.getElementById("error-message");
-      if (input === correctPassword) {
-        open("https://github.com/qckget/screamer/raw/refs/heads/main/scare-sfx.wav")
+      if (pswdinput.value === correctPassword) {
+        errorMsg.textContent = "";
+        const link = document.createElement("a");
+        link.href = linkToDownload;
+        link.download = "";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       } else {
         errorMsg.textContent = "Неверный пароль. Попробуйте снова.";
       }
